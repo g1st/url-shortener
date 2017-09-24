@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>URL Shortener Microservice</title>
+    <style>
+      pre {
+        margin-left: 3rem;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>URL Shortener Microservice</h1>
+    <h2>Example creation usage:</h2>
+
+    <pre>https://g1st.com/new/https://www.google.com</pre>
+    <pre>https://g1st.com/new/http://foo.com:80</pre>
+
+    <h2>Example creation output:</h2>
+
+    <pre>{"original_url":"http://foo.com:80", "short_url":"https://g1st.com/2871"}</pre>
+
+    <h2>Usage:</h2>
+    <pre>https://g1st.com/2871</pre>
+
+    <h2>Will redirect to:</h2>
+    <pre>https://www.google.com/</pre>
+
+  </body>
+</html>
