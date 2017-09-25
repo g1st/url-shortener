@@ -33,12 +33,12 @@ app.get('/new/:url(*)', (req, res) => {
           if (results.length > 0) {
             // url already exists
             cursor.update({original_url: req.params.url}, {$push: {shortened_url: miniUrl}});
-            res.send(`{"original_url": "${req.params.url}", "shortened_url": "https://short-url2.herokuapp.com/${PORT}/${miniUrl}"}`);
+            res.send(`{"original_url": "${req.params.url}", "shortened_url": "https://short-url2.herokuapp.com/${miniUrl}"}`);
 
           } else {
             // need add to db
             cursor.insert({original_url: req.params.url, shortened_url: [miniUrl]});
-            res.send(`{"original_url": "${req.params.url}", "shortened_url": "https://short-url2.herokuapp.com/${PORT}/${miniUrl}"}`);
+            res.send(`{"original_url": "${req.params.url}", "shortened_url": "https://short-url2.herokuapp.com/${miniUrl}"}`);
           }
           db.close();
         });
