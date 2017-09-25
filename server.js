@@ -3,12 +3,11 @@ const mongodb = require('mongodb').MongoClient;
 const validUrl = require('valid-url');
 const shortid = require('shortid');
 const PORT = process.env.PORT || 3000;
+const mongoUrl = process.env.DATABASE_URL || 'mongodb://localhost:27017/urls';
 
 const app = express();
 
 app.use(express.static(__dirname + '/'));
-
-const mongoUrl = 'mongodb://localhost:27017/urls';
 
 app.get('/', (req, res) =>
   res.render('index')
@@ -34,15 +33,14 @@ app.get('/new/:url(*)', (req, res) => {
           if (results.length > 0) {
             // url already exists
             cursor.update({original_url: req.params.url}, {$push: {shortened_url: miniUrl}});
-            res.send(`{"original_url": "${req.params.url}", "shortened_url": "localhost:${PORT}/${miniUrl}"}`);
+            res.send(`{"original_url": "${req.params.url}", "shortened_url": "https://short-url2.herokuapp.com/${PORT}/${miniUrl}"}`);
 
           } else {
             // need add to db
             cursor.insert({original_url: req.params.url, shortened_url: [miniUrl]});
-            res.send(`{"original_url": "${req.params.url}", "shortened_url": "localhost:${PORT}/${miniUrl}"}`);
+            res.send(`{"original_url": "${req.params.url}", "shortened_url": "https://short-url2.herokuapp.com/${PORT}/${miniUrl}"}`);
           }
           db.close();
-
         });
 
     } else {
