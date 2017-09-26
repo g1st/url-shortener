@@ -24,8 +24,8 @@ app.get('/new/:url(*)', (req, res) => {
       const query = {
         original_url: {
           $eq: req.params.url
-          }
-        };
+        }
+      };
 
       cursor.find(query).toArray((err, results) => {
           if (err) throw err;
@@ -44,7 +44,7 @@ app.get('/new/:url(*)', (req, res) => {
         });
 
     } else {
-      res.send(`{"error": "${req.params.url} Incorrect URL format."}`);
+      res.send(`{"error": "Incorrect URL format.", "format": "${req.params.url}"}`);
     }
   });
 });
@@ -59,12 +59,15 @@ app.get('/:url(*)', (req, res) => {
         }
       }
     };
+
     const cursor = db.collection('urls');
     cursor.find(query).toArray((err, results) => {
       if (err) throw err;
+
       if (results.length > 0) {
         res.redirect(results[0].original_url);
       }
+
       else {
         res.send({error: "No corresponding shortlink found in the database."});
       }
@@ -73,6 +76,5 @@ app.get('/:url(*)', (req, res) => {
   }
 );
 });
-
 
 app.listen(PORT, () => console.log(`server listening on port ${PORT}`));
